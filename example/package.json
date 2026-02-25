@@ -11,10 +11,10 @@
     "prebuild": "expo prebuild --clean"
   },
   "dependencies": {
-    "expo": "~53.0.6",
+    "expo": "^53.0.27",
     "expo-image-picker": "^16.1.4",
     "react": "19.0.0",
-    "react-native": "0.79.2"
+    "react-native": "0.79.6"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
