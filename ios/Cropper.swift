@@ -184,9 +184,13 @@ class Cropper: NSObject, CropViewControllerDelegate {
   }
 
   private static func getTempUrl(ext: String) -> URL? {
-    let dir = FileManager().temporaryDirectory
-    return URL(
-      string: "\(dir.absoluteString)\(ProcessInfo.processInfo.globallyUniqueString).\(ext)")!
+    // Write into the caches directory rather than NSTemporaryDirectory so that
+    // consumers (e.g. expo-file-system's moveAsync) that require write access
+    // to the containing directory can move the file out.
+    guard let dir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+      return nil
+    }
+    return dir.appendingPathComponent("\(ProcessInfo.processInfo.globallyUniqueString).\(ext)")
   }
 
   private static func createLocalizationBundle(cancelText: String?, doneText: String?) -> Bundle? {
